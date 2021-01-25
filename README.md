@@ -70,13 +70,13 @@ the package publish 3 files
 ```php
 http://localhost:8000/paytabs_payment
 ```
-which call the function ( PaytabsController@index ) by GET Request
+which call the function ( `PaytabsController@index` ) by GET Request
 
 ### Verify Payment:
 ```php
 http://localhost:8000/paytabs_response
 ```
-the return response from paytabs which call the function ( PaytabsController@response ) by Post Request
+the return response from paytabs which call the function ( `PaytabsController@response` ) by Post Request
 
 ## test card:
 
