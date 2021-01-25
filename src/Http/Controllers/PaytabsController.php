@@ -53,11 +53,17 @@ class PaytabsController extends Controller
         ));
 
 
+        // dd($result);
 
         if ($result->response_code == 4012) {
             return redirect($result->payment_url);
         }
+        if ($result->response_code == 4094) {
+            return $result->details;
+        }
+
         return $result->result;
+
     }
 
     public function response(Request $request)

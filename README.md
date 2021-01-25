@@ -18,7 +18,25 @@ Begin by installing this package through Composer. Just run following command to
 composer require baselrabia/paytabs-with-laravel
 ```
 
-Once this operation completes the package will automatically be discovered for **Laravel 5.6 and above**, otherwise, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
+Once this operation completes the package will automatically be discovered for **Laravel 5.6 and above**,
+
+- Run this line to publish package files in your app
+
+```php
+php artisan vendor:publish --provider="Basel\Paytabs\PaytabsServiceProvider"
+```
+- after that fire the migration command
+
+```php
+php artisan migrate
+```
+- last step add those two fields in your `.env` file ,edit it's value with your own 
+
+```php
+merchant_email=**************@gmail.com
+merchant_secretKey=****************************************************************
+```
+Otherwise, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
 ```php
 'providers' => [
 	...
@@ -26,7 +44,7 @@ Once this operation completes the package will automatically be discovered for *
 ],
 ```
 
-Now add the alias.
+- Now add the Aliase
 
 ```php
 'aliases' => [
@@ -34,19 +52,8 @@ Now add the alias.
 	'Paytabs' => Basel\Paytabs\Facades\PaytabsFacade::class,
 
 ],
+
 ```
-
-then Run this line to publish package files in your app
-
-```php
-php artisan vendor:publish --provider="Basel\Paytabs\PaytabsServiceProvider"
-```
-after that fire the migration command
-
-```php
-php artisan migrate
-```
-
 ## what's happining there:
 the package publish 3 files 
 ```php
@@ -54,7 +61,9 @@ the package publish 3 files
 2- App/Models/PaytabsInvoice.php
 3- config/paytabs.php
 ```
-you are free to change what u want in the logic of these files {{ Without Deleteing 🧐}}
+- you are free to change what you want in the logic of these files {{ Without Deleteing 🧐}}
+- the result of success payment will process making a paytabs invoice through the model `App/Models/PaytabsInvoice.php`
+- the config file have differnt values for response languague, currancy, email and secert_key
 
 ### the package has 2 routes 
 ### Create Payment Page:
