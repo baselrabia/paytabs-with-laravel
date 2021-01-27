@@ -1,6 +1,7 @@
 <?php
 
 namespace Basel\Paytabs;
+
 class Paytabs {
 	private static $instance = null;
     private $merchant_email;

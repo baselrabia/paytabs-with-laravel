@@ -11,9 +11,10 @@ class PaytabsController extends Controller
 
     public function index()
     {
-        $pt = Paytabs::getInstance();
 
-        $result = $pt->create_pay_page(array(
+        // $pt = app('paytabs'); //the instance through the register service provider singleton
+
+        $result = Paytabs::getInstance()->create_pay_page(array(
 
             //Customer's Personal Information
             'cc_first_name' => "john",          //This will be prefilled as Credit Card First Name
@@ -44,7 +45,7 @@ class PaytabsController extends Controller
             'unit_price' => "2 || 2 || 6",                                  //Unit price of the product. If multiple products then add “||” separator.
             "other_charges" => "91.00",                                     //Additional charges. e.g.: shipping charges, taxes, VAT, etc.
             'amount' => "101.00",                                          //Amount of the products and other charges, it should be equal to: amount = (sum of all products’ (unit_price * quantity)) + other_charges
-            'discount'=>"1",                                                //Discount of the transaction. The Total amount of the invoice will be= amount - discount
+            'discount' => "1",                                                //Discount of the transaction. The Total amount of the invoice will be= amount - discount
 
             //Invoice Information
             'title' => "John Doe",               // Customer's Name on the invoice
@@ -63,18 +64,16 @@ class PaytabsController extends Controller
         }
 
         return $result->result;
-
     }
 
     public function response(Request $request)
     {
-        $pt = Paytabs::getInstance();
-        $result = $pt->verify_payment($request->payment_reference);
+
+        $result = Paytabs::getInstance()->verify_payment($request->payment_reference);
 
         if ($result->response_code == 100) {
             //success
-            $this->createInvoice((Array)$result);
-
+            $this->createInvoice((array)$result);
         }
         return $result->result;
     }
@@ -84,6 +83,4 @@ class PaytabsController extends Controller
         $request['order_id'] = $request["reference_no"];
         PaytabsInvoice::create($request);
     }
-
-
 }
