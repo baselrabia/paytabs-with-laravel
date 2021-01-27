@@ -1,18 +1,18 @@
 <?php
 
 namespace Basel\Paytabs;
-
-define("TESTING", "https://localhost:8888/paytabs/apiv2/index");
-define("AUTHENTICATION", "https://www.paytabs.com/apiv2/validate_secret_key");
-define("PAYPAGE_URL", "https://www.paytabs.com/apiv2/create_pay_page");
-define("VERIFY_URL", "https://www.paytabs.com/apiv2/verify_payment");
-
 class Paytabs {
-
+	private static $instance = null;
     private $merchant_email;
-    private $merchant_secretKey;
+	private $merchant_secretKey;
 
-    public function __construct()
+	const TESTING = 'https://localhost:8888/paytabs/apiv2/index';
+	const AUTHENTICATION = 'https://www.paytabs.com/apiv2/validate_secret_key';
+	const PAYPAGE_URL = 'https://www.paytabs.com/apiv2/create_pay_page';
+	const VERIFY_URL = 'https://www.paytabs.com/apiv2/verify_payment';
+
+
+    private function __construct()
     {
         $this->merchant_email = config('paytabs.merchant_email');
         $this->merchant_secretKey = config('paytabs.merchant_secretKey');
@@ -20,17 +20,16 @@ class Paytabs {
 
 	public static function getInstance()
 	{
-		static $inst = null;
-		if ($inst === null) {
-			$inst = new Paytabs();
+		if (self::$instance == null) {
+			self::$instance = new Paytabs();
 		}
-        $inst->api_key = "";
-		return $inst;
+        self::$instance->api_key = "";
+		return self::$instance;
 	}
 
 
 	function authentication(){
-		$obj = json_decode($this->runPost(AUTHENTICATION, array("merchant_email"=> $this->merchant_email, "merchant_secretKey"=>  $this->merchant_secretKey)));
+		$obj = json_decode($this->runPost(self::AUTHENTICATION, array("merchant_email"=> $this->merchant_email, "merchant_secretKey"=>  $this->merchant_secretKey)));
 		if($obj->access == "granted")
 			$this->api_key = $obj->api_key;
 		else
@@ -50,13 +49,13 @@ class Paytabs {
         $values['cms_with_version'] = config('paytabs.cms_with_version');
         $values['paypage_info'] = config('paytabs.paypage_info');
 
-		return json_decode($this->runPost(PAYPAGE_URL, $values));
+		return json_decode($this->runPost(self::PAYPAGE_URL, $values));
 	}
 
 	function send_request(){
 		$values['ip_customer'] = $_SERVER['REMOTE_ADDR'];
 		$values['ip_merchant'] = isset($_SERVER['SERVER_ADDR'])? $_SERVER['SERVER_ADDR'] : '::1';
-		return json_decode($this->runPost(TESTING, $values));
+		return json_decode($this->runPost(self::TESTING, $values));
 	}
 
 
@@ -64,7 +63,7 @@ class Paytabs {
 		$values['merchant_email'] = $this->merchant_email;
 		$values['secret_key'] = $this->merchant_secretKey;
 		$values['payment_reference'] = $payment_reference;
-		return json_decode($this->runPost(VERIFY_URL, $values));
+		return json_decode($this->runPost(self::VERIFY_URL, $values));
 	}
 
 	function runPost($url, $fields) {

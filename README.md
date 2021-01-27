@@ -36,6 +36,10 @@ php artisan migrate
 merchant_email=**************@gmail.com
 merchant_secretKey=****************************************************************
 ```
+And make sure to change your `APP_URL` 
+```php
+APP_URL=http://localhost:8000
+```
 Otherwise, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
 ```php
 'providers' => [
