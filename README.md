@@ -1,5 +1,8 @@
 [![Issues](https://img.shields.io/github/issues/baselrabia/paytabs-with-laravel.svg?style=flat-square)](https://github.com/baselrabia/paytabs-with-laravel/issues)
 [![Stars](https://img.shields.io/github/stars/baselrabia/paytabs-with-laravel.svg?style=flat-square)](https://github.com/baselrabia/paytabs-with-laravel/stargazers)
+[![Latest Version](https://img.shields.io/github/tag/baselrabia/paytabs-with-laravel.svg?style=flat-square&label=release)](https://github.com/baselrabia/paytabs-with-laravel/tags)
+[![Software License](https://img.shields.io/github/license/baselrabia/paytabs-with-laravel.svg?style=flat-square)](LICENSE)
+[![Total Downloads](https://img.shields.io/packagist/dt/baselrabia/paytabs-with-laravel.svg?style=flat-square)](https://packagist.org/packages/baselrabia/paytabs-with-laravel)
 
 <p align="center">
 	<img src='https://www.paytabs.com/seals/03.png' width="14%" alt="paytabs Logo"/>
